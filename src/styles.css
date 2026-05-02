@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.98 0.01 280);
+  --foreground: oklch(0.2 0.05 280);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.05 280);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.05 280);
+  --primary: oklch(0.6 0.25 300);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.92 0.1 85);
+  --secondary-foreground: oklch(0.3 0.1 85);
+  --muted: oklch(0.94 0.02 280);
+  --muted-foreground: oklch(0.5 0.05 280);
+  --accent: oklch(0.72 0.2 145);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.88 0.04 280);
+  --input: oklch(0.88 0.04 280);
+  --ring: oklch(0.6 0.25 300);
+  --radius: 1rem;
+  --font-sans: 'Nunito', sans-serif;
+}
+
+.dark {
+  --background: oklch(0.18 0.03 280);
+  --foreground: oklch(0.95 0.02 280);
+  --card: oklch(0.22 0.03 280);
+  --card-foreground: oklch(0.95 0.02 280);
+  --border: oklch(0.3 0.04 280);
+  --input: oklch(0.3 0.04 280);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+  --font-sans: var(--font-sans);
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: var(--font-sans);
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+  50% {
+    transform: scale(1.12) rotate(2deg);
+  }
+  75% {
+    transform: scale(1.06) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animate-celebrate {
+  animation: celebrate 0.6s ease-in-out;
+}
+
+@keyframes bounce-once {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  70% {
+    transform: translateY(-4px);
+  }
+}
+.animate-bounce-once {
+  animation: bounce-once 0.4s ease-in-out;
+}

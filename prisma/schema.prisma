@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Child {
+  id        Int           @id @default(autoincrement())
+  name      String        @unique
+  points    Int           @default(0)
+  sessions  TaskSession[]
+  purchases Purchase[]
+}
+
+model TaskSession {
+  id           Int       @id @default(autoincrement())
+  childId      Int
+  child        Child     @relation(fields: [childId], references: [id])
+  date         String
+  period       String
+  day          String
+  completions  String    @default("[]")
+  pointsEarned Int       @default(0)
+  validated    Boolean   @default(false)
+  validatedAt  DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@unique([childId, date, period])
+}
+
+model Purchase {
+  id          Int       @id @default(autoincrement())
+  childId     Int
+  child       Child     @relation(fields: [childId], references: [id])
+  rewardKey   String
+  rewardLabel String
+  cost        Int
+  quantity    Int       @default(1)
+  unitValue   Int?
+  unitLabel   String?
+  createdAt   DateTime  @default(now())
+  isDone      Boolean   @default(false)
+  doneAt      DateTime?
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "key": "screen-time",
+    "label": "Temps d'écran",
+    "mode": "quantity",
+    "costPerUnit": 1,
+    "unitValue": 5,
+    "unit": "min",
+    "emoji": "📱"
+  },
+  {
+    "key": "onepiece-episode",
+    "label": "One Piece — un épisode",
+    "mode": "unique",
+    "cost": 20,
+    "emoji": "📖"
+  },
+  {
+    "key": "dessert-extra",
+    "label": "Dessert bonus",
+    "mode": "unique",
+    "cost": 5,
+    "emoji": "🍰"
+  }
+]

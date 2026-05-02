@@ -1,0 +1,8 @@
+[
+  { "label": "Ranger son cartable", "deadline": "19:30" },
+  { "label": "Faire ses devoirs", "deadline": "20:00" },
+  { "label": "Prendre sa douche", "deadline": "20:30" },
+  { "label": "Mettre son pyjama", "deadline": "20:40" },
+  { "label": "Se brosser les dents", "deadline": "20:45" },
+  { "label": "Ranger sa chambre", "deadline": "21:00" }
+]
