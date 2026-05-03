@@ -1,25 +1,30 @@
 [
   {
-    "key": "screen-time",
-    "label": "Temps d'écran",
-    "mode": "quantity",
-    "costPerUnit": 1,
-    "unitValue": 5,
-    "unit": "min",
+    "key": "1h-screen-time",
+    "label": "1h de temps d'écran",
+    "mode": "unique",
+    "cost": 50,
     "emoji": "📱"
   },
   {
-    "key": "onepiece-episode",
-    "label": "One Piece — un épisode",
+    "key": "manga",
+    "label": "Achat d'un manga",
     "mode": "unique",
-    "cost": 20,
+    "cost": 200,
     "emoji": "📖"
   },
   {
-    "key": "dessert-extra",
-    "label": "Dessert bonus",
+    "key": "repas-film",
+    "label": "Film au choix + plateau repas",
     "mode": "unique",
-    "cost": 5,
-    "emoji": "🍰"
+    "cost": 100,
+    "emoji": "🍰🖥️"
+  },
+  {
+    "key": "fast-food",
+    "label": "Fast food au choix",
+    "mode": "unique",
+    "cost": 1000,
+    "emoji": "🍔"
   }
 ]
