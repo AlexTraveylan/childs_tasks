@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Progress } from '#/components/ui/progress'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
@@ -13,6 +13,21 @@ const ENCOURAGEMENTS = [
   'Bravo ! ⭐',
   'Trop fort ! 🎉',
   'Ouais ! 🙌',
+]
+
+const VALIDATED_MESSAGES = [
+  '🏆 Champion(ne) ! Tu gères trop bien !',
+  "🚀 T'es une fusée ! Rien ne t'arrête !",
+  '🌟 Superstar du quotidien !',
+  "🎯 Parfait ! T'es vraiment au top !",
+  '💪 Trop fort(e) ! Continue comme ça !',
+  '🦸 Super-héros/héroïne de la maison !',
+  "😎 Trop cool ! T'as tout géré !",
+  "✨ Magique ! T'es brillant(e) !",
+  "🥇 Médaille d'or pour toi !",
+  '🎉 Waouh, quelle efficacité !',
+  '🌈 Tu illumines la journée !',
+  "🔥 En feu aujourd'hui !",
 ]
 
 interface ChildPanelProps {
@@ -100,6 +115,12 @@ export function ChildPanel({
   const pct =
     tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0
 
+  const validatedMessage = useMemo(
+    () =>
+      VALIDATED_MESSAGES[Math.floor(Math.random() * VALIDATED_MESSAGES.length)],
+    [childName],
+  )
+
   return (
     <div className="flex flex-col gap-3 p-3 h-full">
       <div className="flex items-center justify-between gap-2">
@@ -125,8 +146,11 @@ export function ChildPanel({
       )}
 
       {validated && (
-        <div className="text-center px-3 py-2 rounded-2xl bg-secondary/40 border-2 border-secondary w-full flex-shrink-0">
-          <p className="font-black text-secondary-foreground text-sm">
+        <div className="text-center px-3 py-3 rounded-2xl bg-secondary/40 border-2 border-secondary w-full flex-shrink-0 space-y-1">
+          <p className="font-black text-secondary-foreground text-base">
+            {validatedMessage}
+          </p>
+          <p className="text-xs text-secondary-foreground/70 font-semibold">
             ⭐ Session validée ! Points mis à jour
           </p>
         </div>
@@ -143,16 +167,18 @@ export function ChildPanel({
         </>
       )}
 
-      <div className="flex flex-col gap-2 flex-1 overflow-auto">
-        {tasks.map((task, i) => (
-          <TaskItem
-            key={i}
-            task={task}
-            completion={completions[i]}
-            onToggle={() => onToggle(i)}
-          />
-        ))}
-      </div>
+      {!validated && (
+        <div className="flex flex-col gap-2 flex-1 overflow-auto">
+          {tasks.map((task, i) => (
+            <TaskItem
+              key={i}
+              task={task}
+              completion={completions[i]}
+              onToggle={() => onToggle(i)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

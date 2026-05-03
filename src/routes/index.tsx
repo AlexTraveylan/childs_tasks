@@ -115,6 +115,7 @@ function TasksPage() {
   }
 
   async function handleToggle(childName: string, taskIndex: number) {
+    if (validated[childName]) return
     const childCompletions = completions[childName] ?? {}
     const sessionId = sessionIds[childName]
     if (!sessionId) return
