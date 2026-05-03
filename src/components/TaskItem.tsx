@@ -49,7 +49,7 @@ export function TaskItem({ task, completion, onToggle }: TaskItemProps) {
       <div className="flex flex-col flex-1 min-w-0">
         <span
           className={cn(
-            'font-semibold text-sm leading-tight',
+            'font-semibold text-xl leading-snug',
             done && 'line-through text-muted-foreground',
           )}
         >
