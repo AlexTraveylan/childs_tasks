@@ -127,7 +127,7 @@ export function ChildPanel({
         <h2 className="text-lg font-black tracking-wide text-primary truncate">
           {childName}
         </h2>
-        <Badge className="bg-secondary text-secondary-foreground font-black text-sm px-2.5 py-1 rounded-full flex-shrink-0">
+        <Badge className="bg-secondary text-secondary-foreground font-black text-sm px-2.5 py-1 rounded-full shrink-0">
           ⭐ {points}
         </Badge>
       </div>
