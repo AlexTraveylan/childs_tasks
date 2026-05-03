@@ -17,14 +17,28 @@
     "key": "repas-film",
     "label": "Film au choix + plateau repas",
     "mode": "unique",
-    "cost": 100,
-    "emoji": "🍰🖥️"
+    "cost": 500,
+    "emoji": "🍿🍝🖥️"
+  },
+  {
+    "key": "choix-repas",
+    "label": "Choisir le repas",
+    "mode": "unique",
+    "cost": 300,
+    "emoji": "🍣🍔🍕🌭"
   },
   {
     "key": "fast-food",
-    "label": "Fast food au choix",
+    "label": "Restaurant au choix",
     "mode": "unique",
     "cost": 1000,
     "emoji": "🍔"
+  },
+  {
+    "key": "activite",
+    "label": "Choix d'une activité",
+    "mode": "unique",
+    "cost": 1000,
+    "emoji": "🎳🧗"
   }
 ]
