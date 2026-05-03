@@ -1,0 +1,87 @@
+{
+  "languages": {
+    "TypeScript": {
+      "format_on_save": "on",
+      "language_servers": ["typescript-language-server", "eslint"],
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "TSX": {
+      "format_on_save": "on",
+      "language_servers": [
+        "typescript-language-server",
+        "eslint",
+        "tailwindcss-language-server"
+      ],
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "JavaScript": {
+      "format_on_save": "on",
+      "language_servers": ["typescript-language-server", "eslint"],
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "CSS": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "npx",
+          "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    }
+  },
+  "lsp": {
+    "tailwindcss-language-server": {
+      "settings": {
+        "classAttributes": ["class", "className"],
+        "experimental": {
+          "classRegex": ["tw`([^`]*)", "clsx\\(([^)]*)\\)", "cn\\(([^)]*)\\)"]
+        }
+      }
+    }
+  },
+  "file_scan_exclusions": [
+    "**/node_modules",
+    "**/dist",
+    "**/dist-ssr",
+    "**/.vite",
+    "**/coverage",
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/.jj",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings"
+  ],
+  "edit_predictions": {
+    "disabled_globs": [
+      "**/.env*",
+      "**/*.pem",
+      "**/*.key",
+      "**/*.cert",
+      "**/*.crt",
+      "**/.dev.vars",
+      "**/secrets.yml",
+      "**/package-lock.json",
+      "**/pnpm-lock.yaml",
+      "**/yarn.lock"
+    ]
+  }
+}

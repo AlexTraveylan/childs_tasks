@@ -1,9 +1,8 @@
 [
-  { "label": "S'habiller", "deadline": "07:10" },
-  { "label": "Finir de manger", "deadline": "07:30" },
-  { "label": "Débarrasser la table", "deadline": "07:35" },
-  { "label": "Se brosser les dents", "deadline": "07:40" },
-  { "label": "Se brosser les cheveux", "deadline": "07:50" },
-  { "label": "Guitare / chaussures / manteau", "deadline": "08:00" },
-  { "label": "Sortir son vélo et mettre son casque", "deadline": "08:10" }
+  { "label": "S'habiller", "deadline": "08:30" },
+  { "label": "Manger", "deadline": "08:50" },
+  { "label": "Débarrasser la table", "deadline": "09:00" },
+  { "label": "Brosser les dents", "deadline": "09:10" },
+  { "label": "Affaires musique prêtes", "deadline": "09:20" },
+  { "label": "Chaussure, manteau et casque", "deadline": "09:30" }
 ]

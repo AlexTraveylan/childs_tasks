@@ -19,7 +19,8 @@ todos.json
 *.db-shm
 
 # IDE
-.zed
+# Fully assume i am using zed.
+# .zed
 .cursor
 .vscode
 .idea
