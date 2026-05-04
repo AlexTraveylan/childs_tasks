@@ -156,7 +156,7 @@ function ParentsPage() {
               </p>
             </div>
             <Button
-              className="font-black rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 flex-shrink-0"
+              className="font-black rounded-xl bg-accent text-accent-foreground hover:bg-accent/90 shrink-0"
               onClick={() => handleDone(p.id)}
             >
               ✅ Fait !
@@ -191,7 +191,7 @@ function ParentsPage() {
                 <span className="font-semibold truncate">
                   {h.child.name} — {h.rewardLabel}
                 </span>
-                <span className="text-muted-foreground flex-shrink-0 text-xs">
+                <span className="text-muted-foreground shrink-0 text-xs">
                   {new Date(h.createdAt).toLocaleDateString('fr-FR')} →{' '}
                   {h.doneAt
                     ? new Date(h.doneAt).toLocaleDateString('fr-FR')

@@ -42,7 +42,7 @@ export function TaskItem({ task, completion, onToggle }: TaskItemProps) {
         checked={done}
         onCheckedChange={handleToggle}
         className={cn(
-          'h-6 w-6 rounded-lg flex-shrink-0',
+          'h-6 w-6 rounded-lg shrink-0',
           bouncing && 'animate-bounce-once',
         )}
       />
@@ -61,7 +61,7 @@ export function TaskItem({ task, completion, onToggle }: TaskItemProps) {
           </span>
         )}
       </div>
-      <div className="flex flex-col items-end gap-1 flex-shrink-0">
+      <div className="flex flex-col items-end gap-1 shrink-0">
         <Badge
           variant="outline"
           className={cn(

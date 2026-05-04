@@ -124,7 +124,7 @@ export function ChildPanel({
   return (
     <div className="flex flex-col gap-3 p-3 h-full">
       <div className="flex items-center justify-between gap-2">
-        <h2 className="text-lg font-black tracking-wide text-primary truncate">
+        <h2 className="text-lg font-black tracking-wide text-primary truncate capitalize">
           {childName}
         </h2>
         <Badge className="bg-secondary text-secondary-foreground font-black text-sm px-2.5 py-1 rounded-full shrink-0">
@@ -146,7 +146,7 @@ export function ChildPanel({
       )}
 
       {validated && (
-        <div className="text-center px-3 py-3 rounded-2xl bg-secondary/40 border-2 border-secondary w-full flex-shrink-0 space-y-1">
+        <div className="text-center px-3 py-3 rounded-2xl bg-secondary/40 border-2 border-secondary w-full shrink-0 space-y-1">
           <p className="font-black text-secondary-foreground text-base">
             {validatedMessage}
           </p>
@@ -158,7 +158,7 @@ export function ChildPanel({
 
       {!validated && allDone && (
         <>
-          <div className="animate-celebrate text-center px-3 py-2 rounded-2xl bg-accent/20 border-2 border-accent w-full flex-shrink-0">
+          <div className="animate-celebrate text-center px-3 py-2 rounded-2xl bg-accent/20 border-2 border-accent w-full shrink-0">
             <p className="font-black text-accent text-sm">
               🎉 Bravo {childName} !
             </p>

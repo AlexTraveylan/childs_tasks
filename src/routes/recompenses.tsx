@@ -56,7 +56,7 @@ function RewardsPage() {
                   <h2 className="text-xl font-black text-primary truncate">
                     {child.name}
                   </h2>
-                  <span className="bg-secondary text-secondary-foreground font-black text-base px-3 py-1 rounded-full flex-shrink-0">
+                  <span className="bg-secondary text-secondary-foreground font-black text-base px-3 py-1 rounded-full shrink-0">
                     ⭐ {child.points}
                   </span>
                 </div>

@@ -2,5 +2,6 @@
   { "label": "S'habiller", "deadline": "09:00" },
   { "label": "Manger", "deadline": "09:30" },
   { "label": "Débarrasser la table", "deadline": "09:40" },
-  { "label": "Se brosser les dents", "deadline": "09:50" }
+  { "label": "Se brosser les dents", "deadline": "09:50" },
+  { "label": "Médicament oreille", "deadline": "10:00" }
 ]

@@ -13,6 +13,8 @@ function calculatePoints(
   completions: CompletionRecord[],
 ): number {
   const TZ = 'Europe/Paris'
+  const DAILY_COMPLETE_BONUS = 5
+
   let points = 0
 
   for (const c of completions) {
@@ -55,7 +57,7 @@ function calculatePoints(
           minute: '2-digit',
         }).format(d),
       )
-      if (h < dh || (h === dh && m <= dm)) points += 3
+      if (h < dh || (h === dh && m <= dm)) points += DAILY_COMPLETE_BONUS
     }
   }
 

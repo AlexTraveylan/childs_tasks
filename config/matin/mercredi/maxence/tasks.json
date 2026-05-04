@@ -4,5 +4,6 @@
   { "label": "Débarrasser la table", "deadline": "09:00" },
   { "label": "Brosser les dents", "deadline": "09:10" },
   { "label": "Affaires musique prêtes", "deadline": "09:20" },
+  { "label": "Médicament oreille", "deadline": "09:25" },
   { "label": "Chaussure, manteau et casque", "deadline": "09:30" }
 ]

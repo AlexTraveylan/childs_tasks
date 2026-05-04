@@ -163,7 +163,7 @@ function TasksPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-80px)]">
-      <header className="bg-primary text-primary-foreground p-3 text-center shadow-md flex-shrink-0">
+      <header className="bg-primary text-primary-foreground p-3 text-center shadow-md shrink-0">
         <div className="text-2xl font-black">{time || '...'}</div>
         <div className="text-xs font-semibold opacity-90 capitalize">
           {getParisDateLabel()} · {period === 'matin' ? '☀️ Matin' : '🌙 Soir'}
