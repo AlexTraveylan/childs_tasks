@@ -3,5 +3,6 @@
   { "label": "Débarasser la table", "deadline": "20:30" },
   { "label": "Se brosser les dents", "deadline": "20:30" },
   { "label": "Pyjama", "deadline": "20:30" },
-  { "label": "Chambre rangée", "deadline": "20:30" }
+  { "label": "Chambre rangée", "deadline": "20:30" },
+  { "label": "Fermer les volets", "deadline": "20:30" }
 ]
