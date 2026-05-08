@@ -43,7 +43,6 @@ function TasksPage() {
     completions,
     setCompletion,
     removeCompletion,
-    resetChild,
     resetIfStale,
     validated,
     setValidated,
@@ -106,7 +105,6 @@ function TasksPage() {
       await validateSession({ data: { sessionId, honest, tasks: childTasks } })
       const kids = await getChildren()
       setChildren(kids)
-      resetChild(childName)
       setValidated(childName)
       return null
     } catch {

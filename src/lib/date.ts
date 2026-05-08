@@ -73,6 +73,28 @@ export function formatParisTime(isoString: string): string {
   }).format(new Date(isoString))
 }
 
+export function wasCompletedLate(
+  completedAt: string,
+  deadline: string,
+): boolean {
+  const [dh, dm] = deadline.split(':').map(Number)
+  const completionDate = new Date(completedAt)
+  const completionHour = parseInt(
+    new Intl.DateTimeFormat('fr-FR', {
+      timeZone: TZ,
+      hour: '2-digit',
+      hour12: false,
+    }).format(completionDate),
+  )
+  const completionMinute = parseInt(
+    new Intl.DateTimeFormat('fr-FR', {
+      timeZone: TZ,
+      minute: '2-digit',
+    }).format(completionDate),
+  )
+  return completionHour > dh || (completionHour === dh && completionMinute > dm)
+}
+
 export function getParisDateLabel(): string {
   return new Intl.DateTimeFormat('fr-FR', {
     timeZone: TZ,

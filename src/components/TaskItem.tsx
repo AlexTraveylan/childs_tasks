@@ -5,6 +5,7 @@ import {
   isPastDeadline,
   minutesUntilDeadline,
   formatParisTime,
+  wasCompletedLate,
 } from '#/lib/date'
 import type { Task } from '#/lib/config'
 import type { Completion } from '#/store/taskStore'
@@ -76,9 +77,14 @@ export function TaskItem({ task, completion, onToggle }: TaskItemProps) {
         >
           {task.deadline}
         </Badge>
-        {done && past && (
+        {done && wasCompletedLate(completion.completedAt, task.deadline) && (
           <span className="text-[10px] text-orange-400 font-bold">
             ⏰ Hors délai
+          </span>
+        )}
+        {done && !wasCompletedLate(completion.completedAt, task.deadline) && (
+          <span className="text-[10px] text-accent font-bold">
+            ✅ Dans les temps
           </span>
         )}
       </div>
