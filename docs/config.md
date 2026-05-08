@@ -5,7 +5,8 @@
 `src/server/config.ts`
 
 - `validateAndSyncConfig()` — vérifie la structure du dossier `config/` et synchronise les enfants en DB. Appelé au démarrage de la page principale.
-- `loadTasksForDay({ period, day, childName })` — charge `config/<period>/<day>/<childName>/tasks.json`
+- `loadTasksForDay({ period, day, childName, date? })` — charge `config/<period>/<day>/<childName>/tasks.json`. Si `date` (YYYY-MM-DD) est fourni et correspond à un jour férié ou vacances, utilise `holiday` à la place du `day`.
+- `isHolidayDate(isoDate)` — retourne `true` si la date est dans `config/holiday_days.json`
 - `loadRewards()` — charge `config/rewards.json`
 
 ## Structure du dossier `config/`
@@ -50,6 +51,22 @@ type RewardQuantity = {
 type RewardUnique = { key; label; mode: 'unique'; cost; emoji? }
 type Reward = RewardQuantity | RewardUnique
 ```
+
+## Jours fériés et vacances
+
+Le fichier `config/holiday_days.json` liste les jours où les tâches `holiday` s'appliquent :
+
+```json
+{
+  "days": ["MM-dd", "..."],
+  "periods": [{ "start": "MM-dd", "end": "MM-dd" }]
+}
+```
+
+- `days` : jours fériés isolés (ex: `"05-01"` pour le 1er mai)
+- `periods` : intervalles inclusifs — les bornes start/end sont incluses, les périodes cross-mois sont supportées
+
+Quand la date courante est un jour férié ou en vacances, les tâches sont chargées depuis `config/<period>/holiday/<enfant>/tasks.json` au lieu du dossier du jour de la semaine.
 
 ## Ajouter ou modifier des tâches
 
