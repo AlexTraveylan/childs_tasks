@@ -7,5 +7,6 @@
   { "label": "Se brosser les dents", "deadline": "20:15" },
   { "label": "Pyjama", "deadline": "20:20" },
   { "label": "Médicament oreille", "deadline": "20:30" },
-  { "label": "Chambre rangée", "deadline": "21:00" }
+  { "label": "Chambre rangée", "deadline": "21:00" },
+  { "label": "Fermer les volets", "deadline": "21:00" }
 ]
