@@ -3,11 +3,13 @@ import { persist } from 'zustand/middleware'
 import { getParisDate, getParisPeriod } from '#/lib/date'
 
 export type Completion = { completedAt: string }
+export type Skip = { skippedAt: string }
 
 interface TaskStore {
   date: string
   period: 'matin' | 'soir'
   completions: Record<string, Record<number, Completion>>
+  skips: Record<string, Record<number, Skip>>
   validated: Record<string, boolean>
   setCompletion: (
     childName: string,
@@ -15,6 +17,7 @@ interface TaskStore {
     completedAt: string,
   ) => void
   removeCompletion: (childName: string, taskIndex: number) => void
+  setSkip: (childName: string, taskIndex: number, skippedAt: string) => void
   resetChild: (childName: string) => void
   setValidated: (childName: string) => void
   resetIfStale: () => void
@@ -27,6 +30,7 @@ export const useTaskStore = create<TaskStore>()(
       date: '',
       period: 'matin',
       completions: {},
+      skips: {},
       validated: {},
 
       setCompletion: (childName, taskIndex, completedAt) =>
@@ -47,11 +51,24 @@ export const useTaskStore = create<TaskStore>()(
           return { completions: { ...s.completions, [childName]: child } }
         }),
 
+      setSkip: (childName, taskIndex, skippedAt) =>
+        set((s) => ({
+          skips: {
+            ...s.skips,
+            [childName]: {
+              ...(s.skips[childName] ?? {}),
+              [taskIndex]: { skippedAt },
+            },
+          },
+        })),
+
       resetChild: (childName) =>
         set((s) => {
           const completions = { ...s.completions }
+          const skips = { ...s.skips }
           delete completions[childName]
-          return { completions }
+          delete skips[childName]
+          return { completions, skips }
         }),
 
       setValidated: (childName) =>
@@ -62,6 +79,7 @@ export const useTaskStore = create<TaskStore>()(
           date: getParisDate(),
           period: getParisPeriod(),
           completions: {},
+          skips: {},
           validated: {},
         }),
 
