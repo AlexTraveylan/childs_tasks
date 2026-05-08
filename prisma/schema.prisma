@@ -23,6 +23,7 @@ model TaskSession {
   period       String
   day          String
   completions  String    @default("[]")
+  skips        String    @default("[]")
   pointsEarned Int       @default(0)
   validated    Boolean   @default(false)
   validatedAt  DateTime?

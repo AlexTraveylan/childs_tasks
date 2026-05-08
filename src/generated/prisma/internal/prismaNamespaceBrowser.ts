@@ -88,6 +88,7 @@ export const TaskSessionScalarFieldEnum = {
   period: 'period',
   day: 'day',
   completions: 'completions',
+  skips: 'skips',
   pointsEarned: 'pointsEarned',
   validated: 'validated',
   validatedAt: 'validatedAt',

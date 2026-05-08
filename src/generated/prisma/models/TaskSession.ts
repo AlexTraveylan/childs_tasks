@@ -45,6 +45,7 @@ export type TaskSessionMinAggregateOutputType = {
   period: string | null
   day: string | null
   completions: string | null
+  skips: string | null
   pointsEarned: number | null
   validated: boolean | null
   validatedAt: Date | null
@@ -58,6 +59,7 @@ export type TaskSessionMaxAggregateOutputType = {
   period: string | null
   day: string | null
   completions: string | null
+  skips: string | null
   pointsEarned: number | null
   validated: boolean | null
   validatedAt: Date | null
@@ -71,6 +73,7 @@ export type TaskSessionCountAggregateOutputType = {
   period: number
   day: number
   completions: number
+  skips: number
   pointsEarned: number
   validated: number
   validatedAt: number
@@ -97,6 +100,7 @@ export type TaskSessionMinAggregateInputType = {
   period?: true
   day?: true
   completions?: true
+  skips?: true
   pointsEarned?: true
   validated?: true
   validatedAt?: true
@@ -110,6 +114,7 @@ export type TaskSessionMaxAggregateInputType = {
   period?: true
   day?: true
   completions?: true
+  skips?: true
   pointsEarned?: true
   validated?: true
   validatedAt?: true
@@ -123,6 +128,7 @@ export type TaskSessionCountAggregateInputType = {
   period?: true
   day?: true
   completions?: true
+  skips?: true
   pointsEarned?: true
   validated?: true
   validatedAt?: true
@@ -230,6 +236,7 @@ export type TaskSessionGroupByOutputType = {
   period: string
   day: string
   completions: string
+  skips: string
   pointsEarned: number
   validated: boolean
   validatedAt: Date | null
@@ -264,6 +271,7 @@ export type TaskSessionWhereInput = {
   period?: Prisma.StringFilter<'TaskSession'> | string
   day?: Prisma.StringFilter<'TaskSession'> | string
   completions?: Prisma.StringFilter<'TaskSession'> | string
+  skips?: Prisma.StringFilter<'TaskSession'> | string
   pointsEarned?: Prisma.IntFilter<'TaskSession'> | number
   validated?: Prisma.BoolFilter<'TaskSession'> | boolean
   validatedAt?:
@@ -282,6 +290,7 @@ export type TaskSessionOrderByWithRelationInput = {
   period?: Prisma.SortOrder
   day?: Prisma.SortOrder
   completions?: Prisma.SortOrder
+  skips?: Prisma.SortOrder
   pointsEarned?: Prisma.SortOrder
   validated?: Prisma.SortOrder
   validatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -301,6 +310,7 @@ export type TaskSessionWhereUniqueInput = Prisma.AtLeast<
     period?: Prisma.StringFilter<'TaskSession'> | string
     day?: Prisma.StringFilter<'TaskSession'> | string
     completions?: Prisma.StringFilter<'TaskSession'> | string
+    skips?: Prisma.StringFilter<'TaskSession'> | string
     pointsEarned?: Prisma.IntFilter<'TaskSession'> | number
     validated?: Prisma.BoolFilter<'TaskSession'> | boolean
     validatedAt?:
@@ -321,6 +331,7 @@ export type TaskSessionOrderByWithAggregationInput = {
   period?: Prisma.SortOrder
   day?: Prisma.SortOrder
   completions?: Prisma.SortOrder
+  skips?: Prisma.SortOrder
   pointsEarned?: Prisma.SortOrder
   validated?: Prisma.SortOrder
   validatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -346,6 +357,7 @@ export type TaskSessionScalarWhereWithAggregatesInput = {
   period?: Prisma.StringWithAggregatesFilter<'TaskSession'> | string
   day?: Prisma.StringWithAggregatesFilter<'TaskSession'> | string
   completions?: Prisma.StringWithAggregatesFilter<'TaskSession'> | string
+  skips?: Prisma.StringWithAggregatesFilter<'TaskSession'> | string
   pointsEarned?: Prisma.IntWithAggregatesFilter<'TaskSession'> | number
   validated?: Prisma.BoolWithAggregatesFilter<'TaskSession'> | boolean
   validatedAt?:
@@ -361,6 +373,7 @@ export type TaskSessionCreateInput = {
   period: string
   day: string
   completions?: string
+  skips?: string
   pointsEarned?: number
   validated?: boolean
   validatedAt?: Date | string | null
@@ -375,6 +388,7 @@ export type TaskSessionUncheckedCreateInput = {
   period: string
   day: string
   completions?: string
+  skips?: string
   pointsEarned?: number
   validated?: boolean
   validatedAt?: Date | string | null
@@ -386,6 +400,7 @@ export type TaskSessionUpdateInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -404,6 +419,7 @@ export type TaskSessionUncheckedUpdateInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -421,6 +437,7 @@ export type TaskSessionCreateManyInput = {
   period: string
   day: string
   completions?: string
+  skips?: string
   pointsEarned?: number
   validated?: boolean
   validatedAt?: Date | string | null
@@ -432,6 +449,7 @@ export type TaskSessionUpdateManyMutationInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -449,6 +467,7 @@ export type TaskSessionUncheckedUpdateManyInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -482,6 +501,7 @@ export type TaskSessionCountOrderByAggregateInput = {
   period?: Prisma.SortOrder
   day?: Prisma.SortOrder
   completions?: Prisma.SortOrder
+  skips?: Prisma.SortOrder
   pointsEarned?: Prisma.SortOrder
   validated?: Prisma.SortOrder
   validatedAt?: Prisma.SortOrder
@@ -501,6 +521,7 @@ export type TaskSessionMaxOrderByAggregateInput = {
   period?: Prisma.SortOrder
   day?: Prisma.SortOrder
   completions?: Prisma.SortOrder
+  skips?: Prisma.SortOrder
   pointsEarned?: Prisma.SortOrder
   validated?: Prisma.SortOrder
   validatedAt?: Prisma.SortOrder
@@ -514,6 +535,7 @@ export type TaskSessionMinOrderByAggregateInput = {
   period?: Prisma.SortOrder
   day?: Prisma.SortOrder
   completions?: Prisma.SortOrder
+  skips?: Prisma.SortOrder
   pointsEarned?: Prisma.SortOrder
   validated?: Prisma.SortOrder
   validatedAt?: Prisma.SortOrder
@@ -653,6 +675,7 @@ export type TaskSessionCreateWithoutChildInput = {
   period: string
   day: string
   completions?: string
+  skips?: string
   pointsEarned?: number
   validated?: boolean
   validatedAt?: Date | string | null
@@ -665,6 +688,7 @@ export type TaskSessionUncheckedCreateWithoutChildInput = {
   period: string
   day: string
   completions?: string
+  skips?: string
   pointsEarned?: number
   validated?: boolean
   validatedAt?: Date | string | null
@@ -727,6 +751,7 @@ export type TaskSessionScalarWhereInput = {
   period?: Prisma.StringFilter<'TaskSession'> | string
   day?: Prisma.StringFilter<'TaskSession'> | string
   completions?: Prisma.StringFilter<'TaskSession'> | string
+  skips?: Prisma.StringFilter<'TaskSession'> | string
   pointsEarned?: Prisma.IntFilter<'TaskSession'> | number
   validated?: Prisma.BoolFilter<'TaskSession'> | boolean
   validatedAt?:
@@ -743,6 +768,7 @@ export type TaskSessionCreateManyChildInput = {
   period: string
   day: string
   completions?: string
+  skips?: string
   pointsEarned?: number
   validated?: boolean
   validatedAt?: Date | string | null
@@ -754,6 +780,7 @@ export type TaskSessionUpdateWithoutChildInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -770,6 +797,7 @@ export type TaskSessionUncheckedUpdateWithoutChildInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -786,6 +814,7 @@ export type TaskSessionUncheckedUpdateManyWithoutChildInput = {
   period?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   completions?: Prisma.StringFieldUpdateOperationsInput | string
+  skips?: Prisma.StringFieldUpdateOperationsInput | string
   pointsEarned?: Prisma.IntFieldUpdateOperationsInput | number
   validated?: Prisma.BoolFieldUpdateOperationsInput | boolean
   validatedAt?:
@@ -807,6 +836,7 @@ export type TaskSessionSelect<
     period?: boolean
     day?: boolean
     completions?: boolean
+    skips?: boolean
     pointsEarned?: boolean
     validated?: boolean
     validatedAt?: boolean
@@ -827,6 +857,7 @@ export type TaskSessionSelectCreateManyAndReturn<
     period?: boolean
     day?: boolean
     completions?: boolean
+    skips?: boolean
     pointsEarned?: boolean
     validated?: boolean
     validatedAt?: boolean
@@ -847,6 +878,7 @@ export type TaskSessionSelectUpdateManyAndReturn<
     period?: boolean
     day?: boolean
     completions?: boolean
+    skips?: boolean
     pointsEarned?: boolean
     validated?: boolean
     validatedAt?: boolean
@@ -863,6 +895,7 @@ export type TaskSessionSelectScalar = {
   period?: boolean
   day?: boolean
   completions?: boolean
+  skips?: boolean
   pointsEarned?: boolean
   validated?: boolean
   validatedAt?: boolean
@@ -879,6 +912,7 @@ export type TaskSessionOmit<
   | 'period'
   | 'day'
   | 'completions'
+  | 'skips'
   | 'pointsEarned'
   | 'validated'
   | 'validatedAt'
@@ -920,6 +954,7 @@ export type $TaskSessionPayload<
       period: string
       day: string
       completions: string
+      skips: string
       pointsEarned: number
       validated: boolean
       validatedAt: Date | null
@@ -1539,6 +1574,7 @@ export interface TaskSessionFieldRefs {
   readonly period: Prisma.FieldRef<'TaskSession', 'String'>
   readonly day: Prisma.FieldRef<'TaskSession', 'String'>
   readonly completions: Prisma.FieldRef<'TaskSession', 'String'>
+  readonly skips: Prisma.FieldRef<'TaskSession', 'String'>
   readonly pointsEarned: Prisma.FieldRef<'TaskSession', 'Int'>
   readonly validated: Prisma.FieldRef<'TaskSession', 'Boolean'>
   readonly validatedAt: Prisma.FieldRef<'TaskSession', 'DateTime'>
