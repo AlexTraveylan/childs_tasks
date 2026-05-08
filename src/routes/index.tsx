@@ -76,7 +76,7 @@ function TasksPage() {
 
       for (const child of kids) {
         const t = await loadTasksForDay({
-          data: { period, day, childName: child.name.toLowerCase() },
+          data: { period, day, childName: child.name.toLowerCase(), date },
         })
         tasksMap[child.name] = t
         const sess = await getOrCreateSession({
