@@ -7,6 +7,7 @@ import {
   getOrCreateSession,
   updateSessionCompletions,
   validateSession,
+  skipTask,
 } from '#/server/sessions'
 import { verifyParentPassword } from '#/server/auth'
 import { useTaskStore } from '#/store/taskStore'
@@ -18,7 +19,7 @@ import {
   getParisDateLabel,
 } from '#/lib/date'
 import type { Task } from '#/lib/config'
-import type { CompletionRecord } from '#/server/sessions'
+import type { CompletionRecord, SkipRecord } from '#/server/sessions'
 
 export const Route = createFileRoute('/')({
   component: TasksPage,
@@ -43,6 +44,8 @@ function TasksPage() {
     completions,
     setCompletion,
     removeCompletion,
+    skips,
+    setSkip,
     resetIfStale,
     validated,
     setValidated,
@@ -83,6 +86,10 @@ function TasksPage() {
           data: { childId: child.id, date, period, day },
         })
         sessMap[child.name] = sess.id
+        const sessionSkips: SkipRecord[] = JSON.parse(sess.skips || '[]')
+        for (const sk of sessionSkips) {
+          setSkip(child.name, sk.taskIndex, sk.skippedAt)
+        }
       }
 
       setTasks(tasksMap)
@@ -109,6 +116,25 @@ function TasksPage() {
       return null
     } catch {
       return 'Erreur lors de la validation'
+    }
+  }
+
+  async function handleSkip(
+    childName: string,
+    taskIndex: number,
+    password: string,
+  ): Promise<string | null> {
+    const sessionId = sessionIds[childName]
+    if (!sessionId) return 'Session introuvable'
+    try {
+      const result = await skipTask({
+        data: { sessionId, taskIndex, password },
+      })
+      if (!result.success) return result.error
+      setSkip(childName, taskIndex, new Date().toISOString())
+      return null
+    } catch {
+      return 'Erreur lors du skip'
     }
   }
 
@@ -181,9 +207,9 @@ function TasksPage() {
                 points={child.points}
                 tasks={tasks[child.name] ?? []}
                 completions={completions[child.name] ?? {}}
-                skips={{}}
+                skips={skips[child.name] ?? {}}
                 onToggle={(idx) => handleToggle(child.name, idx)}
-                onSkip={async () => null}
+                onSkip={(idx, pwd) => handleSkip(child.name, idx, pwd)}
                 lastMessage={messages[child.name]}
                 validated={validated[child.name] ?? false}
                 onValidate={(pwd, honest) =>
