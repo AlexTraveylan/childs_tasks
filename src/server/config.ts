@@ -95,13 +95,16 @@ export const validateAndSyncConfig = createServerFn({ method: 'GET' }).handler(
 
 export const loadTasksForDay = createServerFn({ method: 'GET' })
   .inputValidator(
-    (data: { period: string; day: string; childName: string }) => data,
+    (data: { period: string; day: string; childName: string; date?: string }) =>
+      data,
   )
   .handler(async ({ data }) => {
+    const effectiveDay =
+      data.date && isHolidayDate(data.date) ? 'holiday' : data.day
     const filePath = join(
       CONFIG_ROOT,
       data.period,
-      data.day,
+      effectiveDay,
       data.childName,
       'tasks.json',
     )
