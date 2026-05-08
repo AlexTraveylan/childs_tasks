@@ -181,7 +181,9 @@ function TasksPage() {
                 points={child.points}
                 tasks={tasks[child.name] ?? []}
                 completions={completions[child.name] ?? {}}
+                skips={{}}
                 onToggle={(idx) => handleToggle(child.name, idx)}
+                onSkip={async () => null}
                 lastMessage={messages[child.name]}
                 validated={validated[child.name] ?? false}
                 onValidate={(pwd, honest) =>

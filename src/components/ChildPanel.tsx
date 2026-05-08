@@ -5,7 +5,7 @@ import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { TaskItem } from '#/components/TaskItem'
 import type { Task } from '#/lib/config'
-import type { Completion } from '#/store/taskStore'
+import type { Completion, Skip } from '#/store/taskStore'
 
 const ENCOURAGEMENTS = [
   'Super ! 💪',
@@ -35,7 +35,9 @@ interface ChildPanelProps {
   points: number
   tasks: Task[]
   completions: Record<number, Completion>
+  skips: Record<number, Skip>
   onToggle: (taskIndex: number) => void
+  onSkip: (taskIndex: number, password: string) => Promise<string | null>
   lastMessage?: string
   validated?: boolean
   onValidate?: (password: string, honest: boolean) => Promise<string | null>
@@ -105,15 +107,24 @@ export function ChildPanel({
   points,
   tasks,
   completions,
+  skips,
   onToggle,
+  onSkip,
   lastMessage,
   validated = false,
   onValidate,
 }: ChildPanelProps) {
-  const doneCount = Object.keys(completions).length
-  const allDone = doneCount === tasks.length && tasks.length > 0
+  const visibleTasks = tasks
+    .map((task, i) => ({ task, originalIndex: i }))
+    .filter(({ originalIndex }) => !(originalIndex in skips))
+
+  const doneCount = visibleTasks.filter(
+    ({ originalIndex }) => originalIndex in completions,
+  ).length
+  const allDone = visibleTasks.length > 0 && doneCount === visibleTasks.length
+  const totalVisible = visibleTasks.length
   const pct =
-    tasks.length > 0 ? Math.round((doneCount / tasks.length) * 100) : 0
+    totalVisible > 0 ? Math.round((doneCount / totalVisible) * 100) : 0
 
   const validatedMessage = useMemo(
     () =>
@@ -135,7 +146,7 @@ export function ChildPanel({
       <div className="space-y-1">
         <Progress value={pct} className="h-3 rounded-full" />
         <p className="text-xs text-muted-foreground text-right font-semibold">
-          {doneCount}/{tasks.length}
+          {doneCount}/{totalVisible}
         </p>
       </div>
 
@@ -169,12 +180,13 @@ export function ChildPanel({
 
       {!validated && (
         <div className="flex flex-col gap-2 flex-1 overflow-auto">
-          {tasks.map((task, i) => (
+          {visibleTasks.map(({ task, originalIndex }) => (
             <TaskItem
-              key={i}
+              key={originalIndex}
               task={task}
-              completion={completions[i]}
-              onToggle={() => onToggle(i)}
+              completion={completions[originalIndex]}
+              onToggle={() => onToggle(originalIndex)}
+              onSkip={(pwd) => onSkip(originalIndex, pwd)}
             />
           ))}
         </div>
