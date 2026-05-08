@@ -5,6 +5,31 @@ import { prisma } from '#/db'
 import type { Task, Reward } from '#/lib/config'
 
 const CONFIG_ROOT = join(process.cwd(), 'config')
+
+type HolidayConfig = {
+  days: string[] // format "MM-dd"
+  periods: { start: string; end: string }[] // format "MM-dd"
+}
+
+export function isHolidayDate(isoDate: string): boolean {
+  const filePath = join(CONFIG_ROOT, 'holiday_days.json')
+  if (!existsSync(filePath)) return false
+
+  const config = JSON.parse(readFileSync(filePath, 'utf-8')) as HolidayConfig
+  const mmdd = isoDate.slice(5) // "YYYY-MM-DD" → "MM-dd"
+  const year = isoDate.slice(0, 4)
+
+  if (config.days.includes(mmdd)) return true
+
+  return config.periods.some((p) => {
+    const startFull = `${year}-${p.start}`
+    let endFull = `${year}-${p.end}`
+    if (endFull < startFull) {
+      endFull = `${parseInt(year) + 1}-${p.end}`
+    }
+    return isoDate >= startFull && isoDate <= endFull
+  })
+}
 const PERIODS = ['matin', 'soir'] as const
 const DAYS = [
   'lundi',
