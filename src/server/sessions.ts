@@ -50,6 +50,8 @@ export function calculatePoints(
   for (const c of completions) {
     if (skipped.has(c.taskIndex)) continue
     const task = tasks[c.taskIndex]
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!task) continue
     if (isOnTime(c.completedAt, task.deadline)) points += 1
   }
 
@@ -108,7 +110,8 @@ export const skipTask = createServerFn({ method: 'POST' })
     const session = await prisma.taskSession.findUniqueOrThrow({
       where: { id: data.sessionId },
     })
-    const skips: SkipRecord[] = JSON.parse(session.skips)
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const skips: SkipRecord[] = JSON.parse(session.skips ?? '[]')
     if (!skips.find((s) => s.taskIndex === data.taskIndex)) {
       skips.push({
         taskIndex: data.taskIndex,
@@ -132,7 +135,8 @@ export const getPendingSessions = createServerFn({ method: 'GET' }).handler(
     return sessions.map((s) => ({
       ...s,
       completions: JSON.parse(s.completions) as CompletionRecord[],
-      skips: JSON.parse(s.skips) as SkipRecord[],
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      skips: JSON.parse(s.skips ?? '[]') as SkipRecord[],
     }))
   },
 )
@@ -146,7 +150,8 @@ export const validateSession = createServerFn({ method: 'POST' })
       where: { id: data.sessionId },
     })
     const completions = JSON.parse(session.completions) as CompletionRecord[]
-    const skips = JSON.parse(session.skips) as SkipRecord[]
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const skips = JSON.parse(session.skips ?? '[]') as SkipRecord[]
     const skippedIndices = skips.map((s) => s.taskIndex)
     const points = data.honest
       ? calculatePoints(data.tasks, completions, skippedIndices)
