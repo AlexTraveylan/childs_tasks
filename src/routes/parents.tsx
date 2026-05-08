@@ -45,6 +45,7 @@ function ParentsPage() {
         period: session.period,
         day: session.day,
         childName: session.child.name.toLowerCase(),
+        date: session.date,
       },
     })
     await validateSession({ data: { sessionId: session.id, honest, tasks } })
