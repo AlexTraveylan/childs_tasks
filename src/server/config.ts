@@ -2,33 +2,20 @@ import { createServerFn } from '@tanstack/react-start'
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { prisma } from '#/db'
+import { isHoliday } from '#/lib/holiday'
 import type { Task, Reward } from '#/lib/config'
 
 const CONFIG_ROOT = join(process.cwd(), 'config')
 
 type HolidayConfig = {
-  days: string[] // format "MM-dd"
-  periods: { start: string; end: string }[] // format "MM-dd"
+  days: string[]
+  periods: { start: string; end: string }[]
 }
 
-export function isHolidayDate(isoDate: string): boolean {
+function loadHolidayConfig(): HolidayConfig | null {
   const filePath = join(CONFIG_ROOT, 'holiday_days.json')
-  if (!existsSync(filePath)) return false
-
-  const config = JSON.parse(readFileSync(filePath, 'utf-8')) as HolidayConfig
-  const mmdd = isoDate.slice(5) // "YYYY-MM-DD" → "MM-dd"
-  const year = isoDate.slice(0, 4)
-
-  if (config.days.includes(mmdd)) return true
-
-  return config.periods.some((p) => {
-    const startFull = `${year}-${p.start}`
-    let endFull = `${year}-${p.end}`
-    if (endFull < startFull) {
-      endFull = `${parseInt(year) + 1}-${p.end}`
-    }
-    return isoDate >= startFull && isoDate <= endFull
-  })
+  if (!existsSync(filePath)) return null
+  return JSON.parse(readFileSync(filePath, 'utf-8')) as HolidayConfig
 }
 const PERIODS = ['matin', 'soir'] as const
 const DAYS = [
@@ -99,8 +86,11 @@ export const loadTasksForDay = createServerFn({ method: 'GET' })
       data,
   )
   .handler(async ({ data }) => {
+    const holidayConfig = loadHolidayConfig()
     const effectiveDay =
-      data.date && isHolidayDate(data.date) ? 'holiday' : data.day
+      data.date && holidayConfig && isHoliday(data.date, holidayConfig)
+        ? 'holiday'
+        : data.day
     const filePath = join(
       CONFIG_ROOT,
       data.period,
