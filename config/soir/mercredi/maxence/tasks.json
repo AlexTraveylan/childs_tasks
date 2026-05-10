@@ -1,9 +1,9 @@
 [
   { "label": "Guitare", "deadline": "19:00" },
-  { "label": "Se laver + cheveux", "deadline": "19:30" },
-  { "label": "Débarasser la table", "deadline": "20:10" },
-  { "label": "Se brosser les dents", "deadline": "20:15" },
-  { "label": "Pyjama", "deadline": "20:20" },
+  { "label": "Se laver + cheveux", "deadline": "19:00" },
+  { "label": "Débarasser la table", "deadline": "20:30" },
+  { "label": "Se brosser les dents", "deadline": "20:30" },
+  { "label": "Pyjama", "deadline": "20:30" },
   { "label": "Médicament oreille", "deadline": "20:30" },
   { "label": "Chambre rangée", "deadline": "21:00" },
   { "label": "Fermer les volets", "deadline": "21:00" }

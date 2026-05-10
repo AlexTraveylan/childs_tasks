@@ -1,10 +1,17 @@
 [
   {
+    "key": "30min-screen-time",
+    "label": "30 minutes de temps d'écran",
+    "mode": "unique",
+    "cost": 25,
+    "emoji": "📱"
+  },
+  {
     "key": "1h-screen-time",
     "label": "1h de temps d'écran",
     "mode": "unique",
     "cost": 50,
-    "emoji": "📱"
+    "emoji": "📱📱"
   },
   {
     "key": "manga",

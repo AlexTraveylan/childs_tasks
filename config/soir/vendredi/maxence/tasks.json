@@ -1,12 +1,11 @@
 [
-  { "label": "Ranger vélo", "deadline": "18:30" },
-  { "label": "Gouter et gourde", "deadline": "18:35" },
-  { "label": "Devoirs", "deadline": "18:50" },
+  { "label": "Gouter et gourde", "deadline": "19:00" },
+  { "label": "Devoirs", "deadline": "19:00" },
   { "label": "Guitare", "deadline": "19:00" },
-  { "label": "Se laver", "deadline": "19:30" },
-  { "label": "Débarasser la table", "deadline": "20:10" },
-  { "label": "Se brosser les dents", "deadline": "20:15" },
-  { "label": "Pyjama", "deadline": "20:20" },
+  { "label": "Se laver", "deadline": "19:00" },
+  { "label": "Débarasser la table", "deadline": "20:30" },
+  { "label": "Se brosser les dents", "deadline": "20:30" },
+  { "label": "Pyjama", "deadline": "20:30" },
   { "label": "Médicament oreille", "deadline": "20:30" },
   { "label": "Chambre rangée", "deadline": "21:00" },
   { "label": "Fermer les volets", "deadline": "21:00" }

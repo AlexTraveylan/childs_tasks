@@ -1,10 +1,10 @@
 [
-  { "label": "Gouter et gourde", "deadline": "18:35" },
-  { "label": "Se laver", "deadline": "19:30" },
-  { "label": "Débarasser la table", "deadline": "20:10" },
-  { "label": "Se brosser les dents", "deadline": "20:15" },
-  { "label": "Pyjama", "deadline": "20:20" },
+  { "label": "Gouter et gourde", "deadline": "19:00" },
+  { "label": "Se laver", "deadline": "19:00" },
+  { "label": "Finir son assiette", "deadline": "20:30" },
+  { "label": "Débarasser la table", "deadline": "20:30" },
+  { "label": "Se brosser les dents", "deadline": "20:30" },
+  { "label": "Pyjama", "deadline": "20:30" },
   { "label": "Chambre rangée", "deadline": "21:00" },
-  { "label": "Fermer les volets", "deadline": "21:00" },
   { "label": "Fermer les volets", "deadline": "21:00" }
 ]

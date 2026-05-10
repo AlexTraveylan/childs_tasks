@@ -1,5 +1,6 @@
 [
   { "label": "Se laver", "deadline": "19:00" },
+  { "label": "Finir son assiette", "deadline": "20:30" },
   { "label": "Débarasser la table", "deadline": "20:30" },
   { "label": "Se brosser les dents", "deadline": "20:30" },
   { "label": "Pyjama", "deadline": "20:30" },
