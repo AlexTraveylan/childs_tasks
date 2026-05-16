@@ -29,58 +29,68 @@ export type AggregateChild = {
 export type ChildAvgAggregateOutputType = {
   id: number | null
   points: number | null
+  streak: number | null
 }
 
 export type ChildSumAggregateOutputType = {
   id: number | null
   points: number | null
+  streak: number | null
 }
 
 export type ChildMinAggregateOutputType = {
   id: number | null
   name: string | null
   points: number | null
+  streak: number | null
 }
 
 export type ChildMaxAggregateOutputType = {
   id: number | null
   name: string | null
   points: number | null
+  streak: number | null
 }
 
 export type ChildCountAggregateOutputType = {
   id: number
   name: number
   points: number
+  streak: number
   _all: number
 }
 
 export type ChildAvgAggregateInputType = {
   id?: true
   points?: true
+  streak?: true
 }
 
 export type ChildSumAggregateInputType = {
   id?: true
   points?: true
+  streak?: true
 }
 
 export type ChildMinAggregateInputType = {
   id?: true
   name?: true
   points?: true
+  streak?: true
 }
 
 export type ChildMaxAggregateInputType = {
   id?: true
   name?: true
   points?: true
+  streak?: true
 }
 
 export type ChildCountAggregateInputType = {
   id?: true
   name?: true
   points?: true
+  streak?: true
   _all?: true
 }
 
@@ -181,6 +191,7 @@ export type ChildGroupByOutputType = {
   id: number
   name: string
   points: number
+  streak: number
   _count: ChildCountAggregateOutputType | null
   _avg: ChildAvgAggregateOutputType | null
   _sum: ChildSumAggregateOutputType | null
@@ -208,6 +219,7 @@ export type ChildWhereInput = {
   id?: Prisma.IntFilter<'Child'> | number
   name?: Prisma.StringFilter<'Child'> | string
   points?: Prisma.IntFilter<'Child'> | number
+  streak?: Prisma.IntFilter<'Child'> | number
   sessions?: Prisma.TaskSessionListRelationFilter
   purchases?: Prisma.PurchaseListRelationFilter
 }
@@ -216,6 +228,7 @@ export type ChildOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
   sessions?: Prisma.TaskSessionOrderByRelationAggregateInput
   purchases?: Prisma.PurchaseOrderByRelationAggregateInput
 }
@@ -228,6 +241,7 @@ export type ChildWhereUniqueInput = Prisma.AtLeast<
     OR?: Prisma.ChildWhereInput[]
     NOT?: Prisma.ChildWhereInput | Prisma.ChildWhereInput[]
     points?: Prisma.IntFilter<'Child'> | number
+    streak?: Prisma.IntFilter<'Child'> | number
     sessions?: Prisma.TaskSessionListRelationFilter
     purchases?: Prisma.PurchaseListRelationFilter
   },
@@ -238,6 +252,7 @@ export type ChildOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
   _count?: Prisma.ChildCountOrderByAggregateInput
   _avg?: Prisma.ChildAvgOrderByAggregateInput
   _max?: Prisma.ChildMaxOrderByAggregateInput
@@ -256,11 +271,13 @@ export type ChildScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<'Child'> | number
   name?: Prisma.StringWithAggregatesFilter<'Child'> | string
   points?: Prisma.IntWithAggregatesFilter<'Child'> | number
+  streak?: Prisma.IntWithAggregatesFilter<'Child'> | number
 }
 
 export type ChildCreateInput = {
   name: string
   points?: number
+  streak?: number
   sessions?: Prisma.TaskSessionCreateNestedManyWithoutChildInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutChildInput
 }
@@ -269,6 +286,7 @@ export type ChildUncheckedCreateInput = {
   id?: number
   name: string
   points?: number
+  streak?: number
   sessions?: Prisma.TaskSessionUncheckedCreateNestedManyWithoutChildInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutChildInput
 }
@@ -276,6 +294,7 @@ export type ChildUncheckedCreateInput = {
 export type ChildUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.TaskSessionUpdateManyWithoutChildNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutChildNestedInput
 }
@@ -284,6 +303,7 @@ export type ChildUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.TaskSessionUncheckedUpdateManyWithoutChildNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutChildNestedInput
 }
@@ -292,45 +312,53 @@ export type ChildCreateManyInput = {
   id?: number
   name: string
   points?: number
+  streak?: number
 }
 
 export type ChildUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ChildUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ChildCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
 }
 
 export type ChildAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
 }
 
 export type ChildMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
 }
 
 export type ChildMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
 }
 
 export type ChildSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  streak?: Prisma.SortOrder
 }
 
 export type ChildScalarRelationFilter = {
@@ -405,6 +433,7 @@ export type ChildUpdateOneRequiredWithoutPurchasesNestedInput = {
 export type ChildCreateWithoutSessionsInput = {
   name: string
   points?: number
+  streak?: number
   purchases?: Prisma.PurchaseCreateNestedManyWithoutChildInput
 }
 
@@ -412,6 +441,7 @@ export type ChildUncheckedCreateWithoutSessionsInput = {
   id?: number
   name: string
   points?: number
+  streak?: number
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutChildInput
 }
 
@@ -446,6 +476,7 @@ export type ChildUpdateToOneWithWhereWithoutSessionsInput = {
 export type ChildUpdateWithoutSessionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
   purchases?: Prisma.PurchaseUpdateManyWithoutChildNestedInput
 }
 
@@ -453,12 +484,14 @@ export type ChildUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutChildNestedInput
 }
 
 export type ChildCreateWithoutPurchasesInput = {
   name: string
   points?: number
+  streak?: number
   sessions?: Prisma.TaskSessionCreateNestedManyWithoutChildInput
 }
 
@@ -466,6 +499,7 @@ export type ChildUncheckedCreateWithoutPurchasesInput = {
   id?: number
   name: string
   points?: number
+  streak?: number
   sessions?: Prisma.TaskSessionUncheckedCreateNestedManyWithoutChildInput
 }
 
@@ -500,6 +534,7 @@ export type ChildUpdateToOneWithWhereWithoutPurchasesInput = {
 export type ChildUpdateWithoutPurchasesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.TaskSessionUpdateManyWithoutChildNestedInput
 }
 
@@ -507,6 +542,7 @@ export type ChildUncheckedUpdateWithoutPurchasesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  streak?: Prisma.IntFieldUpdateOperationsInput | number
   sessions?: Prisma.TaskSessionUncheckedUpdateManyWithoutChildNestedInput
 }
 
@@ -568,6 +604,7 @@ export type ChildSelect<
     id?: boolean
     name?: boolean
     points?: boolean
+    streak?: boolean
     sessions?: boolean | Prisma.Child$sessionsArgs<ExtArgs>
     purchases?: boolean | Prisma.Child$purchasesArgs<ExtArgs>
     _count?: boolean | Prisma.ChildCountOutputTypeDefaultArgs<ExtArgs>
@@ -583,6 +620,7 @@ export type ChildSelectCreateManyAndReturn<
     id?: boolean
     name?: boolean
     points?: boolean
+    streak?: boolean
   },
   ExtArgs['result']['child']
 >
@@ -595,6 +633,7 @@ export type ChildSelectUpdateManyAndReturn<
     id?: boolean
     name?: boolean
     points?: boolean
+    streak?: boolean
   },
   ExtArgs['result']['child']
 >
@@ -603,13 +642,14 @@ export type ChildSelectScalar = {
   id?: boolean
   name?: boolean
   points?: boolean
+  streak?: boolean
 }
 
 export type ChildOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs =
     runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  'id' | 'name' | 'points',
+  'id' | 'name' | 'points' | 'streak',
   ExtArgs['result']['child']
 >
 export type ChildInclude<
@@ -643,6 +683,7 @@ export type $ChildPayload<
       id: number
       name: string
       points: number
+      streak: number
     },
     ExtArgs['result']['child']
   >
@@ -1260,6 +1301,7 @@ export interface ChildFieldRefs {
   readonly id: Prisma.FieldRef<'Child', 'Int'>
   readonly name: Prisma.FieldRef<'Child', 'String'>
   readonly points: Prisma.FieldRef<'Child', 'Int'>
+  readonly streak: Prisma.FieldRef<'Child', 'Int'>
 }
 
 // Custom InputTypes

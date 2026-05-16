@@ -708,6 +708,7 @@ export const ChildScalarFieldEnum = {
   id: 'id',
   name: 'name',
   points: 'points',
+  streak: 'streak',
 } as const
 
 export type ChildScalarFieldEnum =
