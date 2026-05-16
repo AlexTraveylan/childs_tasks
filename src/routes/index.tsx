@@ -25,7 +25,7 @@ export const Route = createFileRoute('/')({
   component: TasksPage,
 })
 
-type Child = { id: number; name: string; points: number }
+type Child = { id: number; name: string; points: number; streak: number }
 
 function TasksPage() {
   const [mounted, setMounted] = useState(false)
@@ -205,6 +205,7 @@ function TasksPage() {
               <ChildPanel
                 childName={child.name}
                 points={child.points}
+                streak={child.streak}
                 tasks={tasks[child.name] ?? []}
                 completions={completions[child.name] ?? {}}
                 skips={skips[child.name] ?? {}}

@@ -4,6 +4,7 @@ import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Input } from '#/components/ui/input'
 import { TaskItem } from '#/components/TaskItem'
+import { StreakBadge } from '#/components/StreakBadge'
 import type { Task } from '#/lib/config'
 import type { Completion, Skip } from '#/store/taskStore'
 
@@ -33,6 +34,7 @@ const VALIDATED_MESSAGES = [
 interface ChildPanelProps {
   childName: string
   points: number
+  streak: number
   tasks: Task[]
   completions: Record<number, Completion>
   skips: Record<number, Skip>
@@ -105,6 +107,7 @@ function ParentValidationForm({
 export function ChildPanel({
   childName,
   points,
+  streak,
   tasks,
   completions,
   skips,
@@ -138,9 +141,12 @@ export function ChildPanel({
         <h2 className="text-lg font-black tracking-wide text-primary truncate capitalize">
           {childName}
         </h2>
-        <Badge className="bg-secondary text-secondary-foreground font-black text-sm px-2.5 py-1 rounded-full shrink-0">
-          ⭐ {points}
-        </Badge>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <StreakBadge streak={streak} />
+          <Badge className="bg-secondary text-secondary-foreground font-black text-sm px-2.5 py-1 rounded-full shrink-0">
+            ⭐ {points}
+          </Badge>
+        </div>
       </div>
 
       <div className="space-y-1">
