@@ -68,3 +68,50 @@ Détectées automatiquement selon l'heure Paris via `src/lib/date.ts` :
 3. L'enfant coche ses tâches → `updateSessionCompletions()` à chaque coche
 4. _(Optionnel)_ Le parent fait un appui long sur une tâche → mot de passe → `skipTask()` → tâche cachée
 5. Le parent entre son mot de passe → `verifyParentPassword()` → `validateSession()`
+
+## Série / combo de victoires
+
+Chaque enfant a un compteur `streak` (colonne sur `Child`) qui mesure le nombre consécutif de demi-journées pleinement réussies.
+
+### Règles d'incrément (dans `validateSession`)
+
+- **+1** si validation honnête ET toutes les tâches actives sont cochées (retards inclus, pas de pénalité)
+- **0** (reset) si validation "triche", ou si une tâche active reste non cochée
+- **inchangée** si toutes les tâches ont été skippées par le parent (`activeTaskCount === 0`)
+- **inchangée** si la session n'a jamais été validée (le parent peut rattraper plus tard sans casser la série)
+
+### Paliers et bonus
+
+| Série | Bonus | Icône            |
+| ----- | ----- | ---------------- |
+| 0–4   | 0%    | aucun            |
+| 5–9   | +5%   | ⚡ étincelle     |
+| 10–14 | +10%  | ⭐ étoile argent |
+| 15–19 | +15%  | 🌟 étoile dorée  |
+| 20+   | +20%  | 🔥 flamme animée |
+
+### Calcul du bonus
+
+Le bonus s'applique **après increment** sur le total `basePoints` de la session :
+
+```
+finalPoints = basePoints === 0 ? 0 : Math.ceil(basePoints × (1 + bonusPct))
+```
+
+Arrondi supérieur pour garantir +1 point minimum quand `basePoints > 0`.
+
+### Helpers
+
+`src/lib/streak.ts` :
+
+- `getStreakLevel(streak)` → palier 0/5/10/15/20
+- `computeStreakUpdate({ currentStreak, honest, activeTaskCount, activeCompletionCount })` → `{ newStreak, streakLevel, bonusPct }`
+- `applyStreakBonus(basePoints, bonusPct)` → points avec bonus
+
+### Affichage
+
+`src/components/StreakBadge.tsx` — affiché dans l'en-tête de `ChildPanel` à côté du prénom. Masqué si `streak < 5`.
+
+### Idempotence
+
+`validateSession` retourne immédiatement si `session.validated === true`. Sans cette garde, une double validation incrémenterait deux fois la série.
