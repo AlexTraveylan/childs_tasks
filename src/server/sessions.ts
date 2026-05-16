@@ -2,6 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { prisma } from '#/db'
 import { checkParentPassword } from '#/server/auth'
 import type { Task } from '#/lib/config'
+import { computeStreakUpdate, applyStreakBonus } from '#/lib/streak'
 
 export type CompletionRecord = {
   taskIndex: number
@@ -148,14 +149,36 @@ export const validateSession = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     const session = await prisma.taskSession.findUniqueOrThrow({
       where: { id: data.sessionId },
+      include: { child: true },
     })
+
+    if (session.validated) return
+
     const completions = JSON.parse(session.completions) as CompletionRecord[]
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const skips = JSON.parse(session.skips ?? '[]') as SkipRecord[]
     const skippedIndices = skips.map((s) => s.taskIndex)
-    const points = data.honest
+    const skippedSet = new Set(skippedIndices)
+
+    const activeTaskCount = data.tasks.filter(
+      (_, i) => !skippedSet.has(i),
+    ).length
+    const activeCompletionCount = completions.filter(
+      (c) => !skippedSet.has(c.taskIndex),
+    ).length
+
+    const basePoints = data.honest
       ? calculatePoints(data.tasks, completions, skippedIndices)
       : 0
+
+    const { newStreak, bonusPct } = computeStreakUpdate({
+      currentStreak: session.child.streak,
+      honest: data.honest,
+      activeTaskCount,
+      activeCompletionCount,
+    })
+
+    const finalPoints = applyStreakBonus(basePoints, bonusPct)
 
     await prisma.$transaction([
       prisma.taskSession.update({
@@ -163,16 +186,15 @@ export const validateSession = createServerFn({ method: 'POST' })
         data: {
           validated: true,
           validatedAt: new Date(),
-          pointsEarned: points,
+          pointsEarned: finalPoints,
         },
       }),
-      ...(points > 0
-        ? [
-            prisma.child.update({
-              where: { id: session.childId },
-              data: { points: { increment: points } },
-            }),
-          ]
-        : []),
+      prisma.child.update({
+        where: { id: session.childId },
+        data: {
+          streak: newStreak,
+          ...(finalPoints > 0 ? { points: { increment: finalPoints } } : {}),
+        },
+      }),
     ])
   })
