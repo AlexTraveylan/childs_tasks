@@ -84,7 +84,8 @@ Chaque enfant a un compteur `streak` (colonne sur `Child`) qui mesure le nombre 
 
 | Série | Bonus | Icône            |
 | ----- | ----- | ---------------- |
-| 0–4   | 0%    | aucun            |
+| 0     | 0%    | aucun            |
+| 1–4   | 0%    | 🌱 pousse        |
 | 5–9   | +5%   | ⚡ étincelle     |
 | 10–14 | +10%  | ⭐ étoile argent |
 | 15–19 | +15%  | 🌟 étoile dorée  |
@@ -104,13 +105,13 @@ Arrondi supérieur pour garantir +1 point minimum quand `basePoints > 0`.
 
 `src/lib/streak.ts` :
 
-- `getStreakLevel(streak)` → palier 0/5/10/15/20
+- `getStreakLevel(streak)` → palier 0/1/5/10/15/20
 - `computeStreakUpdate({ currentStreak, honest, activeTaskCount, activeCompletionCount })` → `{ newStreak, streakLevel, bonusPct }`
 - `applyStreakBonus(basePoints, bonusPct)` → points avec bonus
 
 ### Affichage
 
-`src/components/StreakBadge.tsx` — affiché dans l'en-tête de `ChildPanel` à côté du prénom. Masqué si `streak < 5`.
+`src/components/StreakBadge.tsx` — affiché dans l'en-tête de `ChildPanel` à côté du prénom. Masqué si `streak === 0`. Le palier 1–4 (🌱) s'affiche sans bonus, pour donner un retour visuel dès la première victoire.
 
 ### Idempotence
 

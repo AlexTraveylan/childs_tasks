@@ -9,7 +9,11 @@ type TierConfig = {
   className: string
 }
 
-const TIER_CONFIG: Record<5 | 10 | 15 | 20, TierConfig> = {
+const TIER_CONFIG: Record<1 | 5 | 10 | 15 | 20, TierConfig> = {
+  1: {
+    icon: '🌱',
+    className: 'bg-emerald-100 text-emerald-700 border-emerald-300',
+  },
   5: {
     icon: '⚡',
     className: 'bg-sky-100 text-sky-700 border-sky-300',
@@ -34,15 +38,19 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
   if (level === 0) return null
 
   const config = TIER_CONFIG[level]
-  const bonusPct = level
+  const title =
+    level === 1
+      ? `Série de ${streak} — continue !`
+      : `Série de ${streak} — bonus +${level}% sur tes points`
 
   return (
     <span
-      title={`Série de ${streak} — bonus +${bonusPct}% sur tes points`}
+      title={title}
       className={`inline-flex items-center gap-1 text-sm font-black px-2.5 py-1 rounded-full border-2 shrink-0 ${config.className}`}
     >
       <span aria-hidden="true">{config.icon}</span>
       <span>{streak}</span>
+      {level !== 1 && <span className="opacity-80">+{level}%</span>}
     </span>
   )
 }

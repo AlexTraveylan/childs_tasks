@@ -6,9 +6,13 @@ import {
 } from '#/lib/streak'
 
 describe('getStreakLevel', () => {
-  it('retourne 0 pour streak < 5', () => {
+  it('retourne 0 pour streak = 0', () => {
     expect(getStreakLevel(0)).toBe(0)
-    expect(getStreakLevel(4)).toBe(0)
+  })
+
+  it('retourne 1 pour 1 ≤ streak < 5', () => {
+    expect(getStreakLevel(1)).toBe(1)
+    expect(getStreakLevel(4)).toBe(1)
   })
 
   it('retourne 5 pour 5 ≤ streak < 10', () => {
@@ -34,6 +38,18 @@ describe('getStreakLevel', () => {
 })
 
 describe('computeStreakUpdate', () => {
+  it('passe au palier 1 (sans bonus) dès la première victoire', () => {
+    const r = computeStreakUpdate({
+      currentStreak: 0,
+      honest: true,
+      activeTaskCount: 3,
+      activeCompletionCount: 3,
+    })
+    expect(r.newStreak).toBe(1)
+    expect(r.streakLevel).toBe(1)
+    expect(r.bonusPct).toBe(0)
+  })
+
   it('incrémente la série si toutes les tâches actives sont cochées', () => {
     const r = computeStreakUpdate({
       currentStreak: 4,
