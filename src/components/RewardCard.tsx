@@ -5,6 +5,7 @@ import { Badge } from '#/components/ui/badge'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -109,6 +110,9 @@ export function RewardCard({ reward, points, onBuy }: RewardCardProps) {
             <DialogTitle className="text-center text-lg font-black">
               Confirmer l'achat ?
             </DialogTitle>
+            <DialogDescription className="text-center text-sm">
+              Cette action déduira les points du solde.
+            </DialogDescription>
           </DialogHeader>
           <p className="text-center text-sm text-muted-foreground">
             {reward.emoji} {reward.label}

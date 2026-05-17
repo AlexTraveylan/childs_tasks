@@ -6,6 +6,7 @@ import { Input } from '#/components/ui/input'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '#/components/ui/dialog'
@@ -159,6 +160,9 @@ export function TaskItem({
             <DialogTitle className="text-center text-sm font-black">
               Passer cette tâche ?
             </DialogTitle>
+            <DialogDescription className="text-center text-xs">
+              Le mot de passe parent est requis pour passer une tâche.
+            </DialogDescription>
           </DialogHeader>
           <p className="text-xs text-muted-foreground text-center font-semibold">
             {task.label}
