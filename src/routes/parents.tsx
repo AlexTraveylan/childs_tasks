@@ -11,6 +11,7 @@ import {
 } from '#/server/purchases'
 import { loadTasksForDay } from '#/server/config'
 import { getChildren, setChildStat } from '#/server/children'
+import type { StreakLevel } from '#/lib/streak'
 import { getStreakLevel } from '#/lib/streak'
 
 export const Route = createFileRoute('/parents')({
@@ -22,7 +23,7 @@ type Purchase = Awaited<ReturnType<typeof getPendingPurchases>>[number]
 type HistoryItem = Awaited<ReturnType<typeof getPurchaseHistory>>[number]
 type Child = Awaited<ReturnType<typeof getChildren>>[number]
 
-const STREAK_ICONS: Record<number, string> = {
+const STREAK_ICONS: Record<StreakLevel, string> = {
   0: '',
   1: '🌱',
   5: '⚡',
