@@ -10,6 +10,8 @@ import {
   markPurchaseDone,
 } from '#/server/purchases'
 import { loadTasksForDay } from '#/server/config'
+import { getChildren, setChildStat } from '#/server/children'
+import { getStreakLevel } from '#/lib/streak'
 
 export const Route = createFileRoute('/parents')({
   component: ParentsPage,
@@ -18,20 +20,42 @@ export const Route = createFileRoute('/parents')({
 type Session = Awaited<ReturnType<typeof getPendingSessions>>[number]
 type Purchase = Awaited<ReturnType<typeof getPendingPurchases>>[number]
 type HistoryItem = Awaited<ReturnType<typeof getPurchaseHistory>>[number]
+type Child = Awaited<ReturnType<typeof getChildren>>[number]
+
+const STREAK_ICONS: Record<number, string> = {
+  0: '',
+  1: '🌱',
+  5: '⚡',
+  10: '⭐',
+  15: '🌟',
+  20: '🔥',
+}
+
+function streakIcon(streak: number): string {
+  return STREAK_ICONS[getStreakLevel(streak)]
+}
 
 function ParentsPage() {
   const [unlocked, setUnlocked] = useState(false)
   const [sessions, setSessions] = useState<Session[]>([])
   const [pending, setPending] = useState<Purchase[]>([])
   const [history, setHistory] = useState<HistoryItem[] | null>(null)
+  const [children, setChildren] = useState<Child[]>([])
+  const [editingChild, setEditingChild] = useState<{
+    id: number
+    field: 'points' | 'streak'
+    value: string
+  } | null>(null)
 
   async function loadData() {
-    const [sess, purch] = await Promise.all([
+    const [sess, purch, kids] = await Promise.all([
       getPendingSessions(),
       getPendingPurchases(),
+      getChildren(),
     ])
     setSessions(sess)
     setPending(purch)
+    setChildren(kids)
   }
 
   async function handleUnlocked() {
@@ -60,6 +84,30 @@ function ParentsPage() {
   async function handleShowHistory() {
     const h = await getPurchaseHistory()
     setHistory(h)
+  }
+
+  async function handleStatSave() {
+    if (!editingChild) return
+    const child = children.find((c) => c.id === editingChild.id)
+    if (!child) return
+    const newValue = parseInt(editingChild.value, 10)
+    if (isNaN(newValue) || newValue < 0) {
+      setEditingChild(null)
+      return
+    }
+    if (newValue === child[editingChild.field]) {
+      setEditingChild(null)
+      return
+    }
+    await setChildStat({
+      data: {
+        childId: editingChild.id,
+        field: editingChild.field,
+        value: newValue,
+      },
+    })
+    await loadData()
+    setEditingChild(null)
   }
 
   if (!unlocked) return <ParentPasswordGate onUnlocked={handleUnlocked} />
@@ -202,6 +250,105 @@ function ParentsPage() {
             ))}
           </>
         )}
+      </section>
+
+      {/* Scores des enfants */}
+      <section>
+        <h2 className="text-lg font-black mb-3">🏅 Scores des enfants</h2>
+        <div className="space-y-3">
+          {children.map((child) => (
+            <div
+              key={child.id}
+              className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between gap-4"
+            >
+              <span className="font-black text-primary text-lg">
+                {child.name}
+              </span>
+              <div className="flex gap-4 items-center">
+                {/* Points */}
+                <div className="flex items-center gap-1">
+                  <span className="text-sm font-semibold text-muted-foreground">
+                    🏆
+                  </span>
+                  {editingChild?.id === child.id &&
+                  editingChild.field === 'points' ? (
+                    <input
+                      type="number"
+                      min={0}
+                      className="w-20 text-center font-black text-lg border border-border rounded-lg px-2 py-0.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={editingChild.value}
+                      autoFocus
+                      onChange={(e) =>
+                        setEditingChild({
+                          ...editingChild,
+                          value: e.target.value,
+                        })
+                      }
+                      onBlur={handleStatSave}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleStatSave()
+                        if (e.key === 'Escape') setEditingChild(null)
+                      }}
+                    />
+                  ) : (
+                    <button
+                      className="font-black text-lg tabular-nums hover:text-primary transition-colors cursor-text"
+                      onClick={() =>
+                        setEditingChild({
+                          id: child.id,
+                          field: 'points',
+                          value: String(child.points),
+                        })
+                      }
+                    >
+                      {child.points} pts
+                    </button>
+                  )}
+                </div>
+                {/* Série */}
+                <div className="flex items-center gap-1">
+                  {editingChild?.id === child.id &&
+                  editingChild.field === 'streak' ? (
+                    <input
+                      type="number"
+                      min={0}
+                      className="w-16 text-center font-black text-lg border border-border rounded-lg px-2 py-0.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={editingChild.value}
+                      autoFocus
+                      onChange={(e) =>
+                        setEditingChild({
+                          ...editingChild,
+                          value: e.target.value,
+                        })
+                      }
+                      onBlur={handleStatSave}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleStatSave()
+                        if (e.key === 'Escape') setEditingChild(null)
+                      }}
+                    />
+                  ) : (
+                    <button
+                      className="font-black text-lg tabular-nums hover:text-primary transition-colors cursor-text flex items-center gap-1"
+                      onClick={() =>
+                        setEditingChild({
+                          id: child.id,
+                          field: 'streak',
+                          value: String(child.streak),
+                        })
+                      }
+                    >
+                      {streakIcon(child.streak) && (
+                        <span>{streakIcon(child.streak)}</span>
+                      )}
+                      <span>{child.streak}</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   )
