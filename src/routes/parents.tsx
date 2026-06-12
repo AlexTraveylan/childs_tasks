@@ -256,98 +256,99 @@ function ParentsPage() {
       <section>
         <h2 className="text-lg font-black mb-3">🏅 Scores des enfants</h2>
         <div className="space-y-3">
-          {children.map((child) => (
-            <div
-              key={child.id}
-              className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between gap-4"
-            >
-              <span className="font-black text-primary text-lg">
-                {child.name}
-              </span>
-              <div className="flex gap-4 items-center">
-                {/* Points */}
-                <div className="flex items-center gap-1">
-                  <span className="text-sm font-semibold text-muted-foreground">
-                    🏆
-                  </span>
-                  {editingChild?.id === child.id &&
-                  editingChild.field === 'points' ? (
-                    <input
-                      type="number"
-                      min={0}
-                      className="w-20 text-center font-black text-lg border border-border rounded-lg px-2 py-0.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                      value={editingChild.value}
-                      autoFocus
-                      onChange={(e) =>
-                        setEditingChild({
-                          ...editingChild,
-                          value: e.target.value,
-                        })
-                      }
-                      onBlur={handleStatSave}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleStatSave()
-                        if (e.key === 'Escape') setEditingChild(null)
-                      }}
-                    />
-                  ) : (
-                    <button
-                      className="font-black text-lg tabular-nums hover:text-primary transition-colors cursor-text"
-                      onClick={() =>
-                        setEditingChild({
-                          id: child.id,
-                          field: 'points',
-                          value: String(child.points),
-                        })
-                      }
-                    >
-                      {child.points} pts
-                    </button>
-                  )}
-                </div>
-                {/* Série */}
-                <div className="flex items-center gap-1">
-                  {editingChild?.id === child.id &&
-                  editingChild.field === 'streak' ? (
-                    <input
-                      type="number"
-                      min={0}
-                      className="w-16 text-center font-black text-lg border border-border rounded-lg px-2 py-0.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                      value={editingChild.value}
-                      autoFocus
-                      onChange={(e) =>
-                        setEditingChild({
-                          ...editingChild,
-                          value: e.target.value,
-                        })
-                      }
-                      onBlur={handleStatSave}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleStatSave()
-                        if (e.key === 'Escape') setEditingChild(null)
-                      }}
-                    />
-                  ) : (
-                    <button
-                      className="font-black text-lg tabular-nums hover:text-primary transition-colors cursor-text flex items-center gap-1"
-                      onClick={() =>
-                        setEditingChild({
-                          id: child.id,
-                          field: 'streak',
-                          value: String(child.streak),
-                        })
-                      }
-                    >
-                      {streakIcon(child.streak) && (
-                        <span>{streakIcon(child.streak)}</span>
-                      )}
-                      <span>{child.streak}</span>
-                    </button>
-                  )}
+          {children.map((child) => {
+            const icon = streakIcon(child.streak)
+            return (
+              <div
+                key={child.id}
+                className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between gap-4"
+              >
+                <span className="font-black text-primary text-lg">
+                  {child.name}
+                </span>
+                <div className="flex gap-4 items-center">
+                  {/* Points */}
+                  <div className="flex items-center gap-1">
+                    <span className="text-sm font-semibold text-muted-foreground">
+                      🏆
+                    </span>
+                    {editingChild?.id === child.id &&
+                    editingChild.field === 'points' ? (
+                      <input
+                        type="number"
+                        min={0}
+                        className="w-20 text-center font-black text-lg border border-border rounded-lg px-2 py-0.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={editingChild.value}
+                        autoFocus
+                        onChange={(e) =>
+                          setEditingChild({
+                            ...editingChild,
+                            value: e.target.value,
+                          })
+                        }
+                        onBlur={handleStatSave}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleStatSave()
+                          if (e.key === 'Escape') setEditingChild(null)
+                        }}
+                      />
+                    ) : (
+                      <button
+                        className="font-black text-lg tabular-nums hover:text-primary transition-colors cursor-text"
+                        onClick={() =>
+                          setEditingChild({
+                            id: child.id,
+                            field: 'points',
+                            value: String(child.points),
+                          })
+                        }
+                      >
+                        {child.points} pts
+                      </button>
+                    )}
+                  </div>
+                  {/* Série */}
+                  <div className="flex items-center gap-1">
+                    {editingChild?.id === child.id &&
+                    editingChild.field === 'streak' ? (
+                      <input
+                        type="number"
+                        min={0}
+                        className="w-16 text-center font-black text-lg border border-border rounded-lg px-2 py-0.5 bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={editingChild.value}
+                        autoFocus
+                        onChange={(e) =>
+                          setEditingChild({
+                            ...editingChild,
+                            value: e.target.value,
+                          })
+                        }
+                        onBlur={handleStatSave}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleStatSave()
+                          if (e.key === 'Escape') setEditingChild(null)
+                        }}
+                      />
+                    ) : (
+                      <button
+                        className="font-black text-lg tabular-nums hover:text-primary transition-colors cursor-text flex items-center gap-1"
+                        onClick={() =>
+                          setEditingChild({
+                            id: child.id,
+                            field: 'streak',
+                            value: String(child.streak),
+                          })
+                        }
+                      >
+                        {icon && <span>{icon}</span>}
+                        <span>{child.streak}</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
     </div>
