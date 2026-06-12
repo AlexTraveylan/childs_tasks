@@ -35,3 +35,12 @@ Server functions : `getPendingPurchases()` + `markPurchaseDone()` dans `src/serv
 Server function : `getPurchaseHistory()` dans `src/server/purchases.ts`
 
 - Affiche les achats déjà accomplis avec dates d'achat et d'accomplissement
+
+### 4. Scores des enfants
+
+Affiche les points et la série actuels de chaque enfant (`getChildren()` dans `src/server/children.ts`).
+
+- Cliquer sur une valeur la transforme en `<input type="number">` inline
+- Confirmer avec **Entrée** ou **blur** → `setChildStat({ childId, field, value })` (`src/server/children.ts`)
+- Si la valeur n'a pas changé, aucun appel serveur
+- Icônes de série : `getStreakLevel()` depuis `src/lib/streak.ts`
