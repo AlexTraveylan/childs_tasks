@@ -30,10 +30,18 @@ describe('getStreakLevel', () => {
     expect(getStreakLevel(19)).toBe(15)
   })
 
-  it('retourne 20 (plateau) pour streak ≥ 20', () => {
+  it('retourne 20 pour 20 ≤ streak < 30', () => {
     expect(getStreakLevel(20)).toBe(20)
-    expect(getStreakLevel(50)).toBe(20)
-    expect(getStreakLevel(999)).toBe(20)
+    expect(getStreakLevel(29)).toBe(20)
+  })
+
+  it('retourne les paliers prestige 30 / 50 / 100', () => {
+    expect(getStreakLevel(30)).toBe(30)
+    expect(getStreakLevel(49)).toBe(30)
+    expect(getStreakLevel(50)).toBe(50)
+    expect(getStreakLevel(99)).toBe(50)
+    expect(getStreakLevel(100)).toBe(100)
+    expect(getStreakLevel(999)).toBe(100)
   })
 })
 
@@ -98,7 +106,7 @@ describe('computeStreakUpdate', () => {
     expect(r.bonusPct).toBe(0.05)
   })
 
-  it('plafonne le palier à 20 même si la série dépasse', () => {
+  it('atteint le palier prestige 50 sans dépasser le bonus de 20%', () => {
     const r = computeStreakUpdate({
       currentStreak: 49,
       honest: true,
@@ -106,7 +114,19 @@ describe('computeStreakUpdate', () => {
       activeCompletionCount: 2,
     })
     expect(r.newStreak).toBe(50)
-    expect(r.streakLevel).toBe(20)
+    expect(r.streakLevel).toBe(50)
+    expect(r.bonusPct).toBe(0.2)
+  })
+
+  it('plafonne le bonus à 20% au palier légende (100+)', () => {
+    const r = computeStreakUpdate({
+      currentStreak: 150,
+      honest: true,
+      activeTaskCount: 2,
+      activeCompletionCount: 2,
+    })
+    expect(r.newStreak).toBe(151)
+    expect(r.streakLevel).toBe(100)
     expect(r.bonusPct).toBe(0.2)
   })
 })

@@ -132,3 +132,185 @@ body {
 .animate-flame-flicker {
   animation: flame-flicker 1.6s ease-in-out infinite;
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Paliers de série « prestige » (30 / 50 / 100).
+   Le bonus reste à 20% : ces effets sont du pur spectacle.
+   ────────────────────────────────────────────────────────────── */
+
+/* Palier 30 — ☄️ Météore : la flamme « surchauffe » en bleu-violet,
+   avec une aura de lumière qui pulse autour du badge. */
+@keyframes streak-meteor {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 0 rgba(99, 102, 241, 0.55),
+      0 0 6px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow:
+      0 0 0 6px rgba(99, 102, 241, 0),
+      0 0 18px rgba(59, 130, 246, 0.95);
+  }
+}
+.streak-meteor {
+  background: linear-gradient(135deg, #4f46e5, #2563eb 55%, #7c3aed);
+  animation: streak-meteor 1.5s ease-in-out infinite;
+}
+
+/* Palier 50 — 💎 Diamant : surface holographique iridescente, avec un
+   reflet de lumière qui balaie le badge et une lévitation douce. */
+@keyframes streak-hue-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes streak-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@keyframes streak-shine {
+  0% {
+    transform: translateX(-160%) skewX(-20deg);
+  }
+  55%,
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+.streak-diamond {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    120deg,
+    #cffafe,
+    #c7d2fe 40%,
+    #f5d0fe 70%,
+    #a5f3fc
+  );
+  background-size: 220% 220%;
+  animation:
+    streak-hue-shift 5s ease-in-out infinite,
+    streak-float 3s ease-in-out infinite;
+}
+.streak-diamond::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.9),
+    transparent
+  );
+  animation: streak-shine 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Palier 100 — 👑 Légende : le boss final. Gradient arc-en-ciel qui défile,
+   anneau conique multicolore en rotation (aura magique), étincelles
+   scintillantes et flottement. */
+@keyframes streak-rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+@keyframes streak-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes streak-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.streak-legend {
+  position: relative;
+  background: linear-gradient(
+    100deg,
+    #fde047,
+    #fca5f5 25%,
+    #a5f3fc 50%,
+    #86efac 75%,
+    #fde047
+  );
+  background-size: 300% 100%;
+  animation:
+    streak-rainbow 5s linear infinite,
+    streak-float 3s ease-in-out infinite;
+}
+/* Anneau conique multicolore en rotation, derrière le badge (aura). */
+.streak-legend::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  z-index: -1;
+  background: conic-gradient(
+    from 0deg,
+    #f43f5e,
+    #f59e0b,
+    #fde047,
+    #22c55e,
+    #3b82f6,
+    #a855f7,
+    #f43f5e
+  );
+  filter: blur(3px);
+  animation: streak-spin 3.2s linear infinite;
+}
+/* Étincelles scintillantes au-dessus du badge. */
+.streak-legend::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.95) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.85) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1.6px);
+  background-size: 100% 100%;
+  background-position:
+    18% 30%,
+    62% 65%,
+    85% 25%;
+  background-repeat: no-repeat;
+  animation: streak-twinkle 1.4s ease-in-out infinite;
+}
+
+/* Respecte les préférences d'accessibilité : on coupe les animations
+   mais on garde les couleurs/gradients de chaque palier. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-flame-flicker,
+  .streak-meteor,
+  .streak-diamond,
+  .streak-diamond::before,
+  .streak-legend,
+  .streak-legend::before,
+  .streak-legend::after {
+    animation: none !important;
+  }
+}

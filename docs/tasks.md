@@ -82,14 +82,19 @@ Chaque enfant a un compteur `streak` (colonne sur `Child`) qui mesure le nombre 
 
 ### Paliers et bonus
 
-| Série | Bonus | Icône            |
-| ----- | ----- | ---------------- |
-| 0     | 0%    | aucun            |
-| 1–4   | 0%    | 🌱 pousse        |
-| 5–9   | +5%   | ⚡ étincelle     |
-| 10–14 | +10%  | ⭐ étoile argent |
-| 15–19 | +15%  | 🌟 étoile dorée  |
-| 20+   | +20%  | 🔥 flamme animée |
+| Série | Bonus | Icône            | Effet                                                                         |
+| ----- | ----- | ---------------- | ----------------------------------------------------------------------------- |
+| 0     | 0%    | aucun            | —                                                                             |
+| 1–4   | 0%    | 🌱 pousse        | statique                                                                      |
+| 5–9   | +5%   | ⚡ étincelle     | statique                                                                      |
+| 10–14 | +10%  | ⭐ étoile argent | statique                                                                      |
+| 15–19 | +15%  | 🌟 étoile dorée  | statique                                                                      |
+| 20–29 | +20%  | 🔥 flamme        | scintillement (`animate-flame-flicker`)                                       |
+| 30–49 | +20%  | ☄️ Météore       | dégradé bleu-violet + aura pulsante (`.streak-meteor`)                        |
+| 50–99 | +20%  | 💎 Diamant       | surface holographique + reflet balayant (`.streak-diamond`)                   |
+| 100+  | +20%  | 👑 Légende       | arc-en-ciel défilant + anneau conique rotatif + étincelles (`.streak-legend`) |
+
+> **Bonus plafonné à 20% dès le palier 20.** Les paliers 30 / 50 / 100 sont du **pur prestige visuel** : ils ne donnent aucun bonus supplémentaire, seulement une animation de plus en plus spectaculaire. Les animations sont coupées sous `prefers-reduced-motion: reduce` (les couleurs restent). CSS dans `src/styles.css`.
 
 ### Calcul du bonus
 
@@ -105,7 +110,8 @@ Arrondi supérieur pour garantir +1 point minimum quand `basePoints > 0`.
 
 `src/lib/streak.ts` :
 
-- `getStreakLevel(streak)` → palier 0/1/5/10/15/20
+- `getStreakLevel(streak)` → palier 0/1/5/10/15/20/30/50/100
+- `getStreakBonusPct(level)` → bonus en % du palier (plafonné à 20%)
 - `computeStreakUpdate({ currentStreak, honest, activeTaskCount, activeCompletionCount })` → `{ newStreak, streakLevel, bonusPct }`
 - `applyStreakBonus(basePoints, bonusPct)` → points avec bonus
 

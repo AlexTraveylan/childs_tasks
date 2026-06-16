@@ -1,4 +1,4 @@
-import { getStreakLevel } from '#/lib/streak'
+import { getStreakBonusPct, getStreakLevel } from '#/lib/streak'
 
 interface StreakBadgeProps {
   streak: number
@@ -7,9 +7,14 @@ interface StreakBadgeProps {
 type TierConfig = {
   icon: string
   className: string
+  /** Libellé de prestige affiché en infobulle (paliers 30+). */
+  label?: string
 }
 
-const TIER_CONFIG: Record<1 | 5 | 10 | 15 | 20, TierConfig> = {
+const TIER_CONFIG: Record<
+  Exclude<ReturnType<typeof getStreakLevel>, 0>,
+  TierConfig
+> = {
   1: {
     icon: '🌱',
     className: 'bg-emerald-100 text-emerald-700 border-emerald-300',
@@ -31,6 +36,22 @@ const TIER_CONFIG: Record<1 | 5 | 10 | 15 | 20, TierConfig> = {
     className:
       'bg-orange-100 text-orange-700 border-orange-400 animate-flame-flicker',
   },
+  // ── Paliers prestige (bonus plafonné à 20%, pur spectacle) ──
+  30: {
+    icon: '☄️',
+    label: 'Météore',
+    className: 'streak-meteor text-indigo-50 border-transparent',
+  },
+  50: {
+    icon: '💎',
+    label: 'Diamant',
+    className: 'streak-diamond text-indigo-900 border-transparent',
+  },
+  100: {
+    icon: '👑',
+    label: 'LÉGENDE',
+    className: 'streak-legend text-purple-950 border-transparent',
+  },
 }
 
 export function StreakBadge({ streak }: StreakBadgeProps) {
@@ -38,19 +59,22 @@ export function StreakBadge({ streak }: StreakBadgeProps) {
   if (level === 0) return null
 
   const config = TIER_CONFIG[level]
+  const bonus = getStreakBonusPct(level)
   const title =
     level === 1
       ? `Série de ${streak} — continue !`
-      : `Série de ${streak} — bonus +${level}% sur tes points`
+      : config.label
+        ? `Série de ${streak} — ${config.label} ! Bonus +${bonus}% sur tes points`
+        : `Série de ${streak} — bonus +${bonus}% sur tes points`
 
   return (
     <span
       title={title}
-      className={`inline-flex items-center gap-1 text-sm font-black px-2.5 py-1 rounded-full border-2 shrink-0 ${config.className}`}
+      className={`relative inline-flex items-center gap-1 text-sm font-black px-2.5 py-1 rounded-full border-2 shrink-0 ${config.className}`}
     >
       <span aria-hidden="true">{config.icon}</span>
       <span>{streak}</span>
-      {level !== 1 && <span className="opacity-80">+{level}%</span>}
+      {level !== 1 && <span className="opacity-80">+{bonus}%</span>}
     </span>
   )
 }
